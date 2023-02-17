@@ -1,0 +1,14 @@
+{
+  "name": "1_console_applications",
+  "version": "1.0.0",
+  "description": "",
+  "main": "date_management.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^17.7.0"
+  }
+}
