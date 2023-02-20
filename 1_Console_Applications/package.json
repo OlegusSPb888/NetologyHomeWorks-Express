@@ -1,14 +1,18 @@
 {
   "name": "1_console_applications",
   "version": "1.0.0",
-  "description": "",
+  "description": "Task_1.1",
   "main": "date_management.js",
+  "bin": {
+    "showDate": "date_management.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Oleg Saparov",
   "license": "ISC",
   "dependencies": {
     "yargs": "^17.7.0"
-  }
+  },
+  "devDependencies": {}
 }
