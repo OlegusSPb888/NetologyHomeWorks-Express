@@ -1,0 +1,11 @@
+{
+  "name": "2_modules_path_fs_and_streams",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Heads_and_Tails.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
