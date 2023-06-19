@@ -1,0 +1,106 @@
+1. Загрузите образ busybox последней версии
+
+PS C:\NetologyHomeWorks\7_Docker> docker pull busybox
+Using default tag: latest
+latest: Pulling from library/busybox
+71d064a1ac7d: Pull complete
+Digest: sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
+Status: Downloaded newer image for busybox:latest
+docker.io/library/busybox:latest
+
+
+2. Запустите новый контейнер busybox с командой ping сайта netology.ru, и количеством пингов 7, поименуйте контейнер pinger
+
+PS C:\NetologyHomeWorks\7_Docker> docker run --name pinger -it busybox ping -c 7 netology.ru 
+PING netology.ru (188.114.99.229): 56 data bytes
+64 bytes from 188.114.99.229: seq=0 ttl=62 time=10.456 ms
+64 bytes from 188.114.99.229: seq=1 ttl=62 time=11.109 ms
+64 bytes from 188.114.99.229: seq=2 ttl=62 time=10.634 ms
+64 bytes from 188.114.99.229: seq=3 ttl=62 time=18.764 ms
+64 bytes from 188.114.99.229: seq=4 ttl=62 time=9.603 ms
+64 bytes from 188.114.99.229: seq=5 ttl=62 time=9.923 ms
+64 bytes from 188.114.99.229: seq=6 ttl=62 time=14.669 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 9.603/12.165/18.764 ms
+
+
+3. Выведите на список всех контейнеров - запущенных и остановленных
+
+PS C:\NetologyHomeWorks\7_Docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED              STATUS                          PORTS     NAMES
+bb1f37513881   busybox   "ping -c 7 netology.…"   About a minute ago   Exited (0) About a minute ago             pinger
+ddce619494f2   alpine    "ping vk.com"            45 minutes ago       Exited (137) 33 minutes ago               pinger_vk
+bba669eb9d3b   alpine    "ping ya.ru"             46 minutes ago       Exited (137) 33 minutes ago               pinger_ya
+
+
+4. Выведите на экран логи контейнера с именем pinger
+
+PS C:\NetologyHomeWorks\7_Docker> docker logs -f -t pinger   
+2023-06-18T18:31:04.110489600Z PING netology.ru (188.114.99.229): 56 data bytes
+2023-06-18T18:31:04.121013400Z 64 bytes from 188.114.99.229: seq=0 ttl=62 time=10.456 ms
+2023-06-18T18:31:05.121813900Z 64 bytes from 188.114.99.229: seq=1 ttl=62 time=11.109 ms
+2023-06-18T18:31:06.121420200Z 64 bytes from 188.114.99.229: seq=2 ttl=62 time=10.634 ms
+2023-06-18T18:31:07.129621400Z 64 bytes from 188.114.99.229: seq=3 ttl=62 time=18.764 ms
+2023-06-18T18:31:08.120551100Z 64 bytes from 188.114.99.229: seq=4 ttl=62 time=9.603 ms
+2023-06-18T18:31:09.120993800Z 64 bytes from 188.114.99.229: seq=5 ttl=62 time=9.923 ms
+2023-06-18T18:31:10.125839000Z 64 bytes from 188.114.99.229: seq=6 ttl=62 time=14.669 ms
+2023-06-18T18:31:10.125869800Z
+2023-06-18T18:31:10.125874200Z --- netology.ru ping statistics ---
+2023-06-18T18:31:10.125877200Z 7 packets transmitted, 7 packets received, 0% packet loss
+2023-06-18T18:31:10.125880300Z round-trip min/avg/max = 9.603/12.165/18.764 ms
+
+
+5. Запустите второй раз контейнера с именем pinger
+
+PS C:\NetologyHomeWorks\7_Docker> docker run --name pinger -it busybox ping -c 3 netology.ru
+docker: Error response from daemon: Conflict. The container name "/pinger" is already in use by container "bb1f3751388183d10b42e9160125242dd7f6c6002cb94a57668eeea8cb26ada6". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+
+
+6. Выведите на список всех контейнеров - запущенных и остановленных
+
+PS C:\NetologyHomeWorks\7_Docker> docker ps -a
+CONTAINER ID   IMAGE     COMMAND                  CREATED             STATUS                        PORTS     NAMES
+bb1f37513881   busybox   "ping -c 7 netology.…"   23 minutes ago      Exited (0) 23 minutes ago               pinger
+ddce619494f2   alpine    "ping vk.com"            About an hour ago   Exited (137) 55 minutes ago             pinger_vk
+bba669eb9d3b   alpine    "ping ya.ru"             About an hour ago   Exited (137) 55 minutes ago             pinger_ya
+
+
+7. Выведите на экран логи контейнера с именем pinger
+
+PS C:\NetologyHomeWorks\7_Docker> docker logs pinger
+PING netology.ru (188.114.99.229): 56 data bytes
+64 bytes from 188.114.99.229: seq=0 ttl=62 time=10.456 ms
+64 bytes from 188.114.99.229: seq=1 ttl=62 time=11.109 ms
+64 bytes from 188.114.99.229: seq=2 ttl=62 time=10.634 ms
+64 bytes from 188.114.99.229: seq=3 ttl=62 time=18.764 ms
+64 bytes from 188.114.99.229: seq=4 ttl=62 time=9.603 ms
+64 bytes from 188.114.99.229: seq=5 ttl=62 time=9.923 ms
+64 bytes from 188.114.99.229: seq=6 ttl=62 time=14.669 ms
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+round-trip min/avg/max = 9.603/12.165/18.764 ms
+
+
+8. Определите по логам общее количество запусков команды ping и какое общее количество отправленых запросов
+
+--- netology.ru ping statistics ---
+7 packets transmitted, 7 packets received, 0% packet loss
+
+
+9. Удалите контейнер с именем pinger
+
+PS C:\NetologyHomeWorks\7_Docker> docker rm pinger
+pinger
+
+
+10. Удалите образ busybox
+
+PS C:\NetologyHomeWorks\7_Docker> docker rmi busybox
+Untagged: busybox:latest
+Untagged: busybox@sha256:6e494387c901caf429c1bf77bd92fb82b33a68c0e19f6d1aa6a3ac8d27a7049d
+Deleted: sha256:b539af69bc01c6c1c1eae5474a94b0abaab36b93c165c0cf30b7a0ab294135a3
+Deleted: sha256:0b7d464440dc672e08617a7520ac064ba1d6db2c855c185a2a71f1b20e728875
